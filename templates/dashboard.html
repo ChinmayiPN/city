@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+      }
+
+      .navbar {
+        background: #4facfe;
+        color: white;
+        padding: 15px 20px;
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logout-btn {
+        background: white;
+        color: #4facfe;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .logout-btn:hover {
+        background: #ddd;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+      }
+
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      p {
+        color: #666;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <span>Dashboard</span>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="container">
+      <div class="card">
+        <h1>Welcome to Dashboard 🎉</h1>
+        <p>Hello, <b>{{ name }}</b> 👋</p>
+      </div>
+    </div>
+  </body>
+</html>

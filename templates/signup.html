@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Signup</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        background: white;
+        padding: 30px;
+        width: 350px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      .required {
+        color: red;
+      }
+
+      /* FIX: prevents overflow issue */
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box; /* IMPORTANT */
+      }
+
+      .password-container {
+        position: relative;
+      }
+
+      .password-container input {
+        padding-right: 45px;
+      }
+
+      .toggle-btn {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 18px;
+      }
+
+      .error {
+        color: red;
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background: #4facfe;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #007bff;
+      }
+
+      .clear-btn {
+        background: #999;
+      }
+
+      .clear-btn:hover {
+        background: #666;
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      .login-link a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      function togglePassword() {
+        let pwd = document.getElementById("password");
+        let icon = document.getElementById("eyeIcon");
+
+        if (pwd.type === "password") {
+          pwd.type = "text";
+          icon.textContent = "🔒";
+        } else {
+          pwd.type = "password";
+          icon.textContent = "👁️‍🗨️";
+        }
+      }
+
+      function clearForm() {
+        document.forms["signupForm"].reset();
+
+        document.getElementById("nameError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("phoneError").innerHTML = "";
+      }
+
+      function validateForm() {
+        let valid = true;
+
+        let name = document.forms["signupForm"]["name"].value;
+        let password = document.forms["signupForm"]["password"].value;
+        let email = document.forms["signupForm"]["email"].value;
+        let phone = document.forms["signupForm"]["phone"].value;
+
+        document.getElementById("nameError").innerHTML = "";
+        document.getElementById("passwordError").innerHTML = "";
+        document.getElementById("emailError").innerHTML = "";
+        document.getElementById("phoneError").innerHTML = "";
+
+        if (name === "") {
+          document.getElementById("nameError").innerHTML = "Name is required";
+          valid = false;
+        }
+
+        if (password === "") {
+          document.getElementById("passwordError").innerHTML =
+            "Password is required";
+          valid = false;
+        } else if (password.length < 8) {
+          document.getElementById("passwordError").innerHTML =
+            "Password must be at least 8 characters";
+          valid = false;
+        }
+
+        if (email === "") {
+          document.getElementById("emailError").innerHTML = "Email is required";
+          valid = false;
+        } else if (!email.endsWith("@gmail.com")) {
+          document.getElementById("emailError").innerHTML =
+            "Email must end with @gmail.com";
+          valid = false;
+        }
+
+        if (phone === "") {
+          document.getElementById("phoneError").innerHTML =
+            "Phone number is required";
+          valid = false;
+        } else if (!/^[0-9]{10}$/.test(phone)) {
+          document.getElementById("phoneError").innerHTML =
+            "Phone must be 10 digits";
+          valid = false;
+        }
+
+        return valid;
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Create Account</h2>
+
+      <form
+        name="signupForm"
+        action="/submit"
+        method="POST"
+        onsubmit="return validateForm();"
+      >
+        <label>Name <span class="required">*</span></label>
+        <input type="text" name="name" />
+        <div id="nameError" class="error"></div>
+
+        <label>Password <span class="required">*</span></label>
+        <div class="password-container">
+          <input type="password" name="password" id="password" />
+          <span class="toggle-btn" onclick="togglePassword()" id="eyeIcon"
+            >👁️‍🗨️</span
+          >
+        </div>
+        <div id="passwordError" class="error"></div>
+
+        <label>Email <span class="required">*</span></label>
+        <input type="text" name="email" />
+        <div id="emailError" class="error"></div>
+
+        <label>Phone Number <span class="required">*</span></label>
+        <input type="text" name="phone" />
+        <div id="phoneError" class="error"></div>
+
+        <button type="submit">Sign Up</button>
+        <button type="button" class="clear-btn" onclick="clearForm()">
+          Clear
+        </button>
+
+        <!-- NEW LINE -->
+        <div class="login-link">
+          Already have an account? <a href="#">Sign In</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
